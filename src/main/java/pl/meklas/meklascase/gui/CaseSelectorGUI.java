@@ -41,7 +41,7 @@ public class CaseSelectorGUI implements InventoryHolder {
     public CaseSelectorGUI(MeklasCasePlugin plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
-        this.inventory = Bukkit.createInventory(this, 54, "§6§lCase Management - Select Case");
+        this.inventory = Bukkit.createInventory(this, 54, "§6§lZarządzanie Skrzynkami - Wybierz Skrzynkę");
         
         setupGUI();
         updateCaseDisplay();
@@ -67,13 +67,13 @@ public class CaseSelectorGUI implements InventoryHolder {
         Collection<Case> allCases = plugin.getCaseManager().getAllCases();
         ItemStack info = createItem(
             Material.INFORMATION_BOOK,
-            "§6§lCase Management",
+            "§6§lZarządzanie Skrzynkami",
             Arrays.asList(
-                "§7Select a case to manage its drops",
-                "§7Total Cases: §e" + allCases.size(),
-                "§7Active Cases: §e" + allCases.stream().mapToInt(c -> c.isEnabled() ? 1 : 0).sum(),
+                "§7Wybierz skrzynkę aby zarządzać jej dropami",
+                "§7Łączne Skrzynki: §e" + allCases.size(),
+                "§7Aktywne Skrzynki: §e" + allCases.stream().mapToInt(c -> c.isEnabled() ? 1 : 0).sum(),
                 "",
-                "§8Click on a case to manage its drops"
+                "§8Kliknij na skrzynkę aby zarządzać jej dropami"
             )
         );
         inventory.setItem(INFO_SLOT, info);
@@ -81,26 +81,25 @@ public class CaseSelectorGUI implements InventoryHolder {
         // Navigation buttons
         ItemStack prevPage = createItem(
             Material.ARROW,
-            "§a§lPrevious Page",
-            Arrays.asList("§7Page: §e" + (currentPage + 1), "", "§8Click to go to previous page")
+            "§a§lPoprzednia Strona",
+            Arrays.asList("§7Strona: §e" + (currentPage + 1), "", "§8Kliknij aby przejść do poprzedniej strony")
         );
         inventory.setItem(PREV_PAGE_SLOT, prevPage);
         
         ItemStack nextPage = createItem(
             Material.ARROW,
-            "§a§lNext Page",
-            Arrays.asList("§7Page: §e" + (currentPage + 1), "", "§8Click to go to next page")
+            "§a§lNastępna Strona",
+            Arrays.asList("§7Strona: §e" + (currentPage + 1), "", "§8Kliknij aby przejść do następnej strony")
         );
         inventory.setItem(NEXT_PAGE_SLOT, nextPage);
         
-        // Create case button (if needed)
         ItemStack createCase = createItem(
             Material.EMERALD_BLOCK,
-            "§a§lCreate New Case",
+            "§a§lUtwórz Nową Skrzynkę",
             Arrays.asList(
-                "§7Create a new case",
+                "§7Utwórz nową skrzynkę",
                 "",
-                "§8Click to create new case"
+                "§8Kliknij aby utworzyć nową skrzynkę"
             )
         );
         inventory.setItem(CREATE_CASE_SLOT, createCase);

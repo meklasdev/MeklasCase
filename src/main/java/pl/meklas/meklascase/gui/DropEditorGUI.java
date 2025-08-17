@@ -71,13 +71,12 @@ public class DropEditorGUI implements InventoryHolder {
         }
         
         this.inventory = Bukkit.createInventory(this, 54, 
-            "§6§l" + (isNewItem ? "Add New Drop" : "Edit Drop"));
+            "§6§l" + (isNewItem ? "Dodaj Nowy Drop" : "Edytuj Drop"));
         
         setupGUI();
     }
     
     private void setupGUI() {
-        // Fill borders
         ItemStack borderPane = createItem(Material.GRAY_STAINED_GLASS_PANE, " ", null);
         for (int i = 0; i < 54; i++) {
             if (i < 9 || i >= 45 || i % 9 == 0 || i % 9 == 8) {
@@ -85,147 +84,138 @@ public class DropEditorGUI implements InventoryHolder {
             }
         }
         
-        // Material selector
         ItemStack materialItem = createItem(
             currentMaterial,
-            "§a§lMaterial",
+            "§a§lMateriał",
             Arrays.asList(
-                "§7Current: §e" + currentMaterial.name(),
+                "§7Obecny: §e" + currentMaterial.name(),
                 "",
-                "§8Left click: Open material selector",
-                "§8Right click: Set to held item"
+                "§8Lewy klik: Otwórz selektor materiałów",
+                "§8Prawy klik: Ustaw na trzymany przedmiot"
             )
         );
         inventory.setItem(MATERIAL_SLOT, materialItem);
         
-        // Amount editor
         ItemStack amountItem = createItem(
             Material.PAPER,
-            "§a§lAmount",
+            "§a§lIlość",
             Arrays.asList(
-                "§7Current: §e" + currentAmount,
+                "§7Obecna: §e" + currentAmount,
                 "",
-                "§8Left click: +1",
-                "§8Right click: -1",
-                "§8Shift+Left: +10",
-                "§8Shift+Right: -10",
-                "§8Middle click: Set custom"
+                "§8Lewy klik: +1",
+                "§8Prawy klik: -1",
+                "§8Shift+Lewy: +10",
+                "§8Shift+Prawy: -10",
+                "§8Środkowy klik: Ustaw własną"
             )
         );
         inventory.setItem(AMOUNT_SLOT, amountItem);
         
-        // Weight editor
         ItemStack weightItem = createItem(
             Material.GOLD_INGOT,
-            "§a§lWeight (Drop Chance)",
+            "§a§lWaga (Szansa Dropu)",
             Arrays.asList(
-                "§7Current: §e" + String.format("%.2f", currentWeight),
+                "§7Obecna: §e" + String.format("%.2f", currentWeight),
                 calculateChanceDisplay(),
                 "",
-                "§8Left click: +0.1",
-                "§8Right click: -0.1",
-                "§8Shift+Left: +1.0",
-                "§8Shift+Right: -1.0",
-                "§8Middle click: Set custom"
+                "§8Lewy klik: +0.1",
+                "§8Prawy klik: -0.1",
+                "§8Shift+Lewy: +1.0",
+                "§8Shift+Prawy: -1.0",
+                "§8Środkowy klik: Ustaw własną"
             )
         );
         inventory.setItem(WEIGHT_SLOT, weightItem);
         
-        // Display name editor
         ItemStack nameItem = createItem(
             Material.NAME_TAG,
-            "§a§lDisplay Name",
+            "§a§lNazwa Wyświetlana",
             Arrays.asList(
-                "§7Current: " + (currentDisplayName.isEmpty() ? "§8None" : "§e" + currentDisplayName),
+                "§7Obecna: " + (currentDisplayName.isEmpty() ? "§8Brak" : "§e" + currentDisplayName),
                 "",
-                "§8Left click: Set custom name",
-                "§8Right click: Clear name"
+                "§8Lewy klik: Ustaw własną nazwę",
+                "§8Prawy klik: Wyczyść nazwę"
             )
         );
         inventory.setItem(NAME_SLOT, nameItem);
         
-        // Lore editor
         ItemStack loreItem = createItem(
             Material.WRITABLE_BOOK,
-            "§a§lLore",
+            "§a§lOpis",
             Arrays.asList(
-                "§7Lines: §e" + currentLore.size(),
-                currentLore.isEmpty() ? "§8No lore set" : "§7Preview:",
+                "§7Linie: §e" + currentLore.size(),
+                currentLore.isEmpty() ? "§8Brak opisu" : "§7Podgląd:",
                 currentLore.stream().limit(3).collect(Collectors.joining("\n§7")),
-                currentLore.size() > 3 ? "§8... and " + (currentLore.size() - 3) + " more" : "",
+                currentLore.size() > 3 ? "§8... i " + (currentLore.size() - 3) + " więcej" : "",
                 "",
-                "§8Left click: Add line",
-                "§8Right click: Edit lore",
-                "§8Shift+Right: Clear all"
+                "§8Lewy klik: Dodaj linię",
+                "§8Prawy klik: Edytuj opis",
+                "§8Shift+Prawy: Wyczyść wszystko"
             ).stream().filter(s -> !s.isEmpty()).collect(Collectors.toList())
         );
         inventory.setItem(LORE_SLOT, loreItem);
         
-        // Glow toggle
         ItemStack glowItem = createItem(
             currentGlow ? Material.GLOWSTONE : Material.REDSTONE,
-            "§a§lGlow Effect",
+            "§a§lEfekt Blasku",
             Arrays.asList(
-                "§7Status: " + (currentGlow ? "§aEnabled" : "§cDisabled"),
+                "§7Status: " + (currentGlow ? "§aWłączony" : "§cWyłączony"),
                 "",
-                "§8Click to toggle glow effect"
+                "§8Kliknij aby przełączyć efekt blasku"
             )
         );
         inventory.setItem(GLOW_SLOT, glowItem);
         
-        // Enchantments editor
         ItemStack enchantItem = createItem(
             Material.ENCHANTED_BOOK,
-            "§a§lEnchantments",
+            "§a§lZaklęcia",
             Arrays.asList(
-                "§7Count: §e" + currentEnchantments.size(),
-                currentEnchantments.isEmpty() ? "§8No enchantments" : "§7Enchantments:",
+                "§7Ilość: §e" + currentEnchantments.size(),
+                currentEnchantments.isEmpty() ? "§8Brak zaklęć" : "§7Zaklęcia:",
                 currentEnchantments.entrySet().stream()
                     .limit(5)
                     .map(entry -> "§8- §7" + entry.getKey().getKey().getKey() + " " + entry.getValue())
                     .collect(Collectors.joining("\n")),
-                currentEnchantments.size() > 5 ? "§8... and " + (currentEnchantments.size() - 5) + " more" : "",
+                currentEnchantments.size() > 5 ? "§8... i " + (currentEnchantments.size() - 5) + " więcej" : "",
                 "",
-                "§8Left click: Add enchantment",
-                "§8Right click: Manage enchantments",
-                "§8Shift+Right: Clear all"
+                "§8Lewy klik: Dodaj zaklęcie",
+                "§8Prawy klik: Zarządzaj zaklęciami",
+                "§8Shift+Prawy: Wyczyść wszystko"
             ).stream().filter(s -> !s.isEmpty()).collect(Collectors.toList())
         );
         inventory.setItem(ENCHANTMENTS_SLOT, enchantItem);
         
-        // Preview
         updatePreview();
         
-        // Control buttons
         ItemStack saveButton = createItem(
             Material.EMERALD,
-            "§a§lSave Drop",
+            "§a§lZapisz Drop",
             Arrays.asList(
-                "§7Save this drop to the case",
+                "§7Zapisz ten drop do skrzynki",
                 "",
-                "§8Click to save and return"
+                "§8Kliknij aby zapisać i powrócić"
             )
         );
         inventory.setItem(SAVE_SLOT, saveButton);
         
         ItemStack cancelButton = createItem(
             Material.BARRIER,
-            "§c§lCancel",
+            "§c§lAnuluj",
             Arrays.asList(
-                "§7Discard changes and return",
+                "§7Odrzuć zmiany i powróć",
                 "",
-                "§8Click to cancel"
+                "§8Kliknij aby anulować"
             )
         );
         inventory.setItem(CANCEL_SLOT, cancelButton);
         
         ItemStack resetButton = createItem(
             Material.YELLOW_CONCRETE,
-            "§e§lReset",
+            "§e§lResetuj",
             Arrays.asList(
-                "§7Reset to original values",
+                "§7Resetuj do oryginalnych wartości",
                 "",
-                "§8Click to reset"
+                "§8Kliknij aby zresetować"
             )
         );
         inventory.setItem(RESET_SLOT, resetButton);
@@ -252,8 +242,8 @@ public class DropEditorGUI implements InventoryHolder {
                 lore.add("");
             }
             
-            lore.add("§6§lPreview Item");
-            lore.add("§7This is how the drop will appear");
+            lore.add("§6§lPodgląd Przedmiotu");
+            lore.add("§7Tak będzie wyglądał drop");
             
             meta.setLore(lore);
             preview.setItemMeta(meta);
@@ -270,7 +260,7 @@ public class DropEditorGUI implements InventoryHolder {
         totalWeight += currentWeight;
         
         double chance = (currentWeight / totalWeight) * 100;
-        return "§7Chance: §e" + String.format("%.2f%%", chance);
+        return "§7Szansa: §e" + String.format("%.2f%%", chance);
     }
     
     private ItemStack createItem(Material material, String name, List<String> lore) {
@@ -307,7 +297,7 @@ public class DropEditorGUI implements InventoryHolder {
                     if (held != null && held.getType() != Material.AIR) {
                         currentMaterial = held.getType();
                         setupGUI();
-                        MessageUtils.sendMessage(player, "§aMaterial set to: §e" + currentMaterial.name());
+                        MessageUtils.sendMessage(player, "§aMateriał ustawiony na: §e" + currentMaterial.name());
                     }
                 }
                 break;
@@ -326,7 +316,7 @@ public class DropEditorGUI implements InventoryHolder {
                 } else if (clickType == ClickType.RIGHT) {
                     currentDisplayName = "";
                     setupGUI();
-                    MessageUtils.sendMessage(player, "§aDisplay name cleared!");
+                    MessageUtils.sendMessage(player, "§aNazwa wyświetlana wyczyszczona!");
                 }
                 break;
                 
@@ -338,14 +328,14 @@ public class DropEditorGUI implements InventoryHolder {
                 } else if (clickType == ClickType.SHIFT_RIGHT) {
                     currentLore.clear();
                     setupGUI();
-                    MessageUtils.sendMessage(player, "§aLore cleared!");
+                    MessageUtils.sendMessage(player, "§aOpis wyczyszczony!");
                 }
                 break;
                 
             case GLOW_SLOT:
                 currentGlow = !currentGlow;
                 setupGUI();
-                MessageUtils.sendMessage(player, "§aGlow effect: " + (currentGlow ? "§aEnabled" : "§cDisabled"));
+                MessageUtils.sendMessage(player, "§aEfekt blasku: " + (currentGlow ? "§aWłączony" : "§cWyłączony"));
                 break;
                 
             case ENCHANTMENTS_SLOT:
@@ -356,7 +346,7 @@ public class DropEditorGUI implements InventoryHolder {
                 } else if (clickType == ClickType.SHIFT_RIGHT) {
                     currentEnchantments.clear();
                     setupGUI();
-                    MessageUtils.sendMessage(player, "§aAll enchantments cleared!");
+                    MessageUtils.sendMessage(player, "§aWszystkie zaklęcia wyczyszczone!");
                 }
                 break;
                 
@@ -430,12 +420,12 @@ public class DropEditorGUI implements InventoryHolder {
         
         if (isNewItem) {
             caseObj.getItems().add(newItem);
-            MessageUtils.sendMessage(player, "§aNew drop added successfully!");
+            MessageUtils.sendMessage(player, "§aNowy drop dodany pomyślnie!");
         } else {
             int index = caseObj.getItems().indexOf(originalItem);
             if (index != -1) {
                 caseObj.getItems().set(index, newItem);
-                MessageUtils.sendMessage(player, "§aDrop updated successfully!");
+                MessageUtils.sendMessage(player, "§aDrop zaktualizowany pomyślnie!");
             }
         }
         
@@ -462,7 +452,7 @@ public class DropEditorGUI implements InventoryHolder {
             currentEnchantments.clear();
         }
         setupGUI();
-        MessageUtils.sendMessage(player, "§aValues reset!");
+        MessageUtils.sendMessage(player, "§aWartości zresetowane!");
     }
     
     // Conversation starters
@@ -472,12 +462,12 @@ public class DropEditorGUI implements InventoryHolder {
             .withFirstPrompt(new StringPrompt() {
                 @Override
                 public String getPromptText(ConversationContext context) {
-                    return "§aEnter the display name for this drop (or 'cancel' to cancel):";
+                    return "§aWpisz nazwę wyświetlaną dla tego dropu (lub 'anuluj' aby anulować):";
                 }
                 
                 @Override
                 public Prompt acceptInput(ConversationContext context, String input) {
-                    if ("cancel".equalsIgnoreCase(input)) {
+                    if ("anuluj".equalsIgnoreCase(input) || "cancel".equalsIgnoreCase(input)) {
                         return END_OF_CONVERSATION;
                     }
                     currentDisplayName = input.replace("&", "§");
