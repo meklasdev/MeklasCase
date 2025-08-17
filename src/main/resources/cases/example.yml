@@ -1,0 +1,118 @@
+# ┌─┐─┐ ┬┌─┐┌┬┐┌─┐┬  ┌─┐  ┌─┐┌─┐┌─┐┌─┐
+# ├┤ ┌┴┬┘├─┤││││├─┘│  ├┤   │  ├─┤└─┐├┤ 
+# └─┘┴ └─┴ ┴┴ ┴┴  ┴─┘└─┘  └─┘┴ ┴└─┘└─┘
+#           meklasdev
+type: LOOTBOX
+
+# meklasdev key config
+key:
+  material: TRIPWIRE_HOOK
+  name: "&a&lKlucz do ExampleCase"
+  lore:
+    - "&7Użyj na skrzynce aby otworzyć"
+    - "&7i wygrać fantastyczne nagrody!"
+    - ""
+    - "&e&lKliknij prawym przyciskiem myszy na skrzynkę"
+  glow: true
+
+# meklasdev items
+items:
+  - item: DIAMOND
+    amount: 1
+    weight: 5
+    name: "&b&lDiament Premium"
+    lore:
+      - "&7Rzadki diament o niezwykłej jakości"
+      - "&e&lTOP DROP!"
+    glow: true
+
+  - item: EMERALD
+    amount: 3
+    weight: 15
+    name: "&a&lSzmaragdy"
+    lore:
+      - "&7Piękne zielone klejnoty"
+      - "&a&lRare!"
+
+  - item: GOLD_INGOT
+    amount: 8
+    weight: 35
+    name: "&6&lZłote Sztabki"
+    lore:
+      - "&7Czyste złoto najwyższej próby"
+
+  - item: IRON_INGOT
+    amount: 16
+    weight: 45
+    name: "&f&lŻelazne Sztabki"
+
+  - item: ENCHANTED_GOLDEN_APPLE
+    amount: 1
+    weight: 3
+    name: "&6&lZaczarowane Złote Jabłko"
+    lore:
+      - "&7Legendarne jabłko z mocnymi efektami"
+      - "&c&lULTRA RARE!"
+    glow: true
+    enchantments:
+      UNBREAKING: 1
+
+# meklasdev rotation profiles
+rotation:
+  profiles:
+    day1:
+      description: "Dziś diamenty lecą częściej!"
+      boosts:
+        - item: DIAMOND
+          multiplier: 3.0
+        - item: EMERALD
+          multiplier: 1.5
+
+    day2:
+      description: "Zielony dzień - szmaragdy wszędzie!"
+      boosts:
+        - item: EMERALD
+          multiplier: 4.0
+
+    day3:
+      description: "Złoty dzień bogactwa!"
+      boosts:
+        - item: GOLD_INGOT
+          multiplier: 2.5
+        - item: ENCHANTED_GOLDEN_APPLE
+          multiplier: 2.0
+
+    day4:
+      description: "Specjalne przedmioty na dziś!"
+      override:
+        - item: NETHERITE_INGOT
+          amount: 1
+          weight: 20
+          name: "&5&lNetherite Ingot"
+          lore:
+            - "&7Najrzadszy materiał!"
+            - "&d&lSPECIAL DAY ONLY!"
+          glow: true
+
+        - item: DRAGON_HEAD
+          amount: 1
+          weight: 5
+          name: "&d&lGłowa Smoka"
+          lore:
+            - "&7Trofeum z End"
+            - "&d&lSPECIAL DAY ONLY!"
+          glow: true
+
+        - item: BEACON
+          amount: 1
+          weight: 25
+          name: "&e&lBeacon"
+          lore:
+            - "&7Potężny beacon"
+            - "&d&lSPECIAL DAY ONLY!"
+
+    day5:
+      description: "Dzień żelaza i narzędzi"
+      boosts:
+        - item: IRON_INGOT
+          multiplier: 3.0

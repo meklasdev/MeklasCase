@@ -1,0 +1,30 @@
+name: meklasCase
+version: ${project.version}
+main: pl.meklas.meklascase.MeklasCasePlugin
+api-version: 1.20
+author: meklas
+description: Advanced case plugin with rotation system and fHolo integration
+website: https://github.com/meklas/meklascase
+
+depend: []
+softdepend: [HolographicDisplays, fHolo]
+
+permissions:
+  meklascase.admin:
+    description: Access to all admin commands
+    default: op
+  meklascase.rotate.admin:
+    description: Force rotation commands
+    default: op
+  meklascase.boost.admin:
+    description: Manage daily boosts
+    default: op
+  meklascase.use:
+    description: Use cases and keys
+    default: true
+
+commands:
+  meklascase:
+    description: Main meklasCase command
+    aliases: [mcase, case]
+    usage: /<command> help

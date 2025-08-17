@@ -1,0 +1,47 @@
+# ┌┬┐┌─┐┬┌─┬  ┌─┐┌─┐┌┬┐┌─┐┬  ┬
+# │││├┤ ├┴┐│  ├─┤└─┐ ││├┤ └┐┌┘
+# ┴ ┴└─┘┴ ┴┴─┘┴ ┴└─┘─┴┘└─┘ └┘ 
+#     Advanced Case Plugin  
+
+# meklasdev rotation system
+resetAtFixedTime: true
+fixedTime: "04:00"
+windowHours: 24
+
+# meklasdev quick open
+quickOpen: true
+
+# meklasdev sounds
+sounds:
+  noKey: ENTITY_VILLAGER_NO
+  spin: UI_BUTTON_CLICK
+  win: ENTITY_PLAYER_LEVELUP
+
+# meklasdev broadcast
+broadcast:
+  enabled: true
+  messages:
+    win: "{player} wygrał {item} x{amount} z {case}"
+    top: "{player} pobił TOP DROP! {item} x{amount}"
+    rotation: "Nowy dzień! Dziś wysoka szansa na {boost_item}"
+
+# meklasdev animated holograms
+holograms:
+  enabled: true
+  animations:
+    enabled: true
+    updateInterval: 10
+    effects:
+      rainbow: true
+      particles: true
+      fire: true
+      glitch: true
+      neon: true
+      constellation: true
+      digitalRain: true
+      pulsingBorder: true
+      waveAnimation: true
+
+# meklasdev info
+version: 1.0.0
+author: meklas
