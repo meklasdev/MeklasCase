@@ -4,11 +4,13 @@ import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.meklas.meklascase.commands.MeklasCaseCommand;
+import pl.meklas.meklascase.commands.DropManagementCommand;
 import pl.meklas.meklascase.config.ConfigManager;
 import pl.meklas.meklascase.case.CaseManager;
 import pl.meklas.meklascase.rotation.RotationManager;
 import pl.meklas.meklascase.hologram.HologramManager;
 import pl.meklas.meklascase.listeners.CaseInteractionListener;
+import pl.meklas.meklascase.listeners.DropManagementListener;
 import pl.meklas.meklascase.utils.MessageUtils;
 
 public class MeklasCasePlugin extends JavaPlugin {
@@ -41,10 +43,12 @@ public class MeklasCasePlugin extends JavaPlugin {
         
 
         getServer().getPluginManager().registerEvents(new CaseInteractionListener(this), this);
+        getServer().getPluginManager().registerEvents(new DropManagementListener(this), this);
         
 
         this.liteCommands = LiteBukkitFactory.builder()
                 .commands(new MeklasCaseCommand(this))
+                .commands(new DropManagementCommand(this))
                 .build();
         
 
