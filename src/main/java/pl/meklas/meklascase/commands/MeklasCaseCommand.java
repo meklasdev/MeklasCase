@@ -45,6 +45,7 @@ public class MeklasCaseCommand {
         commands.add("§e/meklascase disable <nazwa> §7- Wyłącza skrzynkę");
         commands.add("§e/meklascase rotate now §7- Wymusza rotację");
         commands.add("§e/meklascase info <case> §7- Informacje o skrzynce");
+        commands.add("§e/meklascase hologram <toggle|reload|effects> §7- Zarządzanie hologramami");
         
         for (String command : commands) {
             plugin.getMessageUtils().sendMessage(player, MessageUtils.PRIMARY_GRADIENT + command + "</gradient>");
@@ -297,6 +298,69 @@ public class MeklasCaseCommand {
             plugin.getMessageUtils().sendMessage(player, MessageUtils.ERROR_GRADIENT + 
                 "Ostatni TOP DROP: " + state.getLastTopDrop() + "</gradient>");
         }
+        
+        plugin.getMessageUtils().sendFooter(player);
+    }
+    
+    @Execute(name = "hologram")
+    @Permission("meklascase.admin")
+    public void hologramCommand(@Context Player player, @Arg String action, @Arg(value = "") String caseName) {
+        switch (action.toLowerCase()) {
+            case "toggle":
+                if (caseName.isEmpty()) {
+                    plugin.getMessageUtils().sendError(player, "Użyj: /meklascase hologram toggle <nazwa>");
+                    return;
+                }
+                
+                boolean currentState = plugin.getConfigManager().getLocations()
+                    .getBoolean("cases." + caseName + ".hologram.enabled", true);
+                
+                plugin.getHologramManager().setHologramEnabled(caseName, !currentState);
+                
+                String status = !currentState ? "włączony" : "wyłączony";
+                plugin.getMessageUtils().sendSuccess(player, "Hologram dla " + caseName + " został " + status);
+                break;
+                
+            case "reload":
+                plugin.getHologramManager().removeAllHolograms();
+                plugin.getHologramManager().initializeHolograms();
+                plugin.getMessageUtils().sendSuccess(player, "Wszystkie hologramy zostały przeładowane!");
+                break;
+                
+            case "effects":
+                showEffectsStatus(player);
+                break;
+                
+            default:
+                plugin.getMessageUtils().sendError(player, "Użyj: hologram <toggle|reload|effects>");
+                break;
+        }
+    }
+    
+    private void showEffectsStatus(Player player) {
+        plugin.getMessageUtils().sendHeader(player, "Status efektów hologramów");
+        
+        String[] effects = {"rainbow", "particles", "fire", "glitch", "neon", "constellation", "digitalRain", "pulsingBorder", "waveAnimation"};
+        
+        for (String effect : effects) {
+            boolean enabled = plugin.getConfigManager().getConfig()
+                .getBoolean("holograms.animations.effects." + effect, true);
+            
+            String status = enabled ? "§a✓ Włączony" : "§c✗ Wyłączony";
+            plugin.getMessageUtils().sendMessage(player, 
+                MessageUtils.SECONDARY_GRADIENT + effect + ": " + status + "</gradient>");
+        }
+        
+        boolean animationsEnabled = plugin.getConfigManager().getConfig()
+            .getBoolean("holograms.animations.enabled", true);
+        long updateInterval = plugin.getConfigManager().getConfig()
+            .getLong("holograms.animations.updateInterval", 10L);
+            
+        plugin.getMessageUtils().sendMessage(player, "");
+        plugin.getMessageUtils().sendMessage(player, 
+            MessageUtils.GOLD_GRADIENT + "Animacje: " + (animationsEnabled ? "§a✓" : "§c✗") + "</gradient>");
+        plugin.getMessageUtils().sendMessage(player, 
+            MessageUtils.GOLD_GRADIENT + "Interwał aktualizacji: " + updateInterval + " ticków</gradient>");
         
         plugin.getMessageUtils().sendFooter(player);
     }

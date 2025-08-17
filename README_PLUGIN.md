@@ -16,11 +16,15 @@
 - **Boosty**: Zwiększone szanse na konkretne itemy
 - **Override**: Całkowicie inne przedmioty w specjalne dni
 
-### 🌟 Hologramy (fHolo)
-- **Automatyczne hologramy**: Nad każdą skrzynką
-- **Informacje na żywo**: Aktualny boost, czas do rotacji
-- **TOP DROP**: Wyświetlanie ostatnich najlepszych wygranych
-- **Piękny design**: Kolorowe gradienty i emotikony
+### 🌟 Animowane Hologramy (fHolo)
+- **Automatyczne hologramy**: Nad każdą skrzynką z animacjami
+- **Zaawansowane efekty**: Rainbow tekst, particle field, konstelacje
+- **Specjalne animacje**: Fire effect dla boostów, glitch dla specjalnych przedmiotów
+- **TOP DROP efekty**: Pulsujące bordy, wave animation, diamond effects
+- **Informacje na żywo**: Aktualny boost, animowany countdown, progress bary
+- **Konfigurowane efekty**: Włączaj/wyłączaj różne animacje
+- **Matrix rain**: Digital rain effect dla urgentnych wiadomości
+- **Neon glow**: Świecące efekty dla aktywnych boostów
 
 ### 📢 System Ogłoszeń
 - **Broadcast wygranych**: Automatyczne ogłaszanie wygranych
@@ -60,6 +64,23 @@ broadcast:
     win: "{player} wygrał {item} x{amount} z {case}"
     top: "{player} pobił TOP DROP! {item} x{amount}"
     rotation: "Nowy dzień! Dziś wysoka szansa na {boost_item}"
+
+# Animowane hologramy
+holograms:
+  enabled: true
+  animations:
+    enabled: true
+    updateInterval: 10  # ticks (0.5 sekundy)
+    effects:
+      rainbow: true      # Rainbow tekst
+      particles: true    # Floating particles
+      fire: true         # Fire efekty dla boostów
+      glitch: true       # Glitch dla specjalnych przedmiotów
+      neon: true         # Neon glow efekty
+      constellation: true # Konstelacje gwiazd
+      digitalRain: true  # Matrix-style rain
+      pulsingBorder: true # Pulsujące bordy
+      waveAnimation: true # Wave animacja tekstu
 ```
 
 ### Skrzynki - `cases/nazwa.yml`
@@ -131,6 +152,7 @@ cases:
 | `/meklascase disable <nazwa>` | Wyłącza skrzynkę | `meklascase.admin` |
 | `/meklascase rotate now` | Wymusza rotację | `meklascase.rotate.admin` |
 | `/meklascase info <case>` | Informacje o skrzynce | `meklascase.admin` |
+| `/meklascase hologram <toggle\|reload\|effects>` | Zarządzanie hologramami | `meklascase.admin` |
 
 **Aliasy**: `/mcase`, `/case`
 
@@ -171,6 +193,13 @@ cases:
 /meklascase info mojaskrzynka
 /meklascase rotate now
 /meklascase reload
+```
+
+#### Hologramy:
+```
+/meklascase hologram effects        # Sprawdź status animacji
+/meklascase hologram toggle nazwa   # Włącz/wyłącz hologram
+/meklascase hologram reload         # Przeładuj wszystkie hologramy
 ```
 
 ## 🎨 System Kolorów

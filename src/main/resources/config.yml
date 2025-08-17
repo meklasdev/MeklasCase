@@ -23,6 +23,23 @@ broadcast:
     top: "{player} pobił TOP DROP! {item} x{amount}"
     rotation: "Nowy dzień! Dziś wysoka szansa na {boost_item}"
 
+# Hologram animation settings
+holograms:
+  enabled: true
+  animations:
+    enabled: true
+    updateInterval: 10  # ticks (0.5 seconds)
+    effects:
+      rainbow: true      # Rainbow text effects
+      particles: true    # Floating particles
+      fire: true         # Fire effects for boosts
+      glitch: true       # Glitch effects for special items
+      neon: true         # Neon glow effects
+      constellation: true # Star constellation effects
+      digitalRain: true  # Matrix-style rain
+      pulsingBorder: true # Pulsing borders
+      waveAnimation: true # Wave text animation
+
 # Plugin info
 version: 1.0.0
 author: meklas
