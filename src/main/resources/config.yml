@@ -1,21 +1,23 @@
-# °€{¢×®[|[{€ ₥€₭ⱠⱫ₴
-# ░▒▓█ ₥€₭ⱠⱫ₴ ¢Ⱨ₳Ø₴ █▓▒░
+# ┌┬┐┌─┐┬┌─┬  ┌─┐┌─┐┌┬┐┌─┐┬  ┬
+# │││├┤ ├┴┐│  ├─┤└─┐ ││├┤ └┐┌┘
+# ┴ ┴└─┘┴ ┴┴─┘┴ ┴└─┘─┴┘└─┘ └┘ 
+#     Advanced Case Plugin  
 
-# ₦Ø₮₳₵Ɉⱥ ₴Ɏ₴₮€₥
+# meklasdev rotation system
 resetAtFixedTime: true
 fixedTime: "04:00"
 windowHours: 24
 
-# ₴Ƶ¥฿₭ł€ Ø₮₩ł€Ɽ₳₦ł€
+# meklasdev quick open
 quickOpen: true
 
-# ĐŹ₩ł€₭ł
+# meklasdev sounds
 sounds:
   noKey: ENTITY_VILLAGER_NO
   spin: UI_BUTTON_CLICK
   win: ENTITY_PLAYER_LEVELUP
 
-# ₳₦Ø₦₴Ɏ ₥€₭ⱠⱫ₴
+# meklasdev broadcast
 broadcast:
   enabled: true
   messages:
@@ -23,7 +25,7 @@ broadcast:
     top: "{player} pobił TOP DROP! {item} x{amount}"
     rotation: "Nowy dzień! Dziś wysoka szansa na {boost_item}"
 
-# ĦØⱠØ₲Ɽ₳₥ ₳₦ł₥₳₵ɾ€
+# meklasdev animated holograms
 holograms:
   enabled: true
   animations:
@@ -40,6 +42,6 @@ holograms:
       pulsingBorder: true
       waveAnimation: true
 
-# ₥€₭ⱠⱫ₴ ł₦₣Ø
+# meklasdev info
 version: 1.0.0
 author: meklas

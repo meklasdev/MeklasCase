@@ -1,7 +1,10 @@
-# ₥€₭ⱠⱫ₴ €Ӿ₳₥₱Ⱡ€ ¢₳₴€
+# ┌─┐─┐ ┬┌─┐┌┬┐┌─┐┬  ┌─┐  ┌─┐┌─┐┌─┐┌─┐
+# ├┤ ┌┴┬┘├─┤││││├─┘│  ├┤   │  ├─┤└─┐├┤ 
+# └─┘┴ └─┴ ┴┴ ┴┴  ┴─┘└─┘  └─┘┴ ┴└─┘└─┘
+#           meklasdev
 type: LOOTBOX
 
-# ₭ⱠɄ¢Ⱬ ₥€₭ⱠⱫ₴
+# meklasdev key config
 key:
   material: TRIPWIRE_HOOK
   name: "&a&lKlucz do ExampleCase"
@@ -12,7 +15,7 @@ key:
     - "&e&lKliknij prawym przyciskiem myszy na skrzynkę"
   glow: true
 
-# ₦₳₲ⱤØĐɎ ₥€₭ⱠⱫ₴
+# meklasdev items
 items:
   - item: DIAMOND
     amount: 1
@@ -54,7 +57,7 @@ items:
     enchantments:
       UNBREAKING: 1
 
-# ₦Ø₮₳₵ɾ€ ₥€₭ⱠⱫ₴
+# meklasdev rotation profiles
 rotation:
   profiles:
     day1:
