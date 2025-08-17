@@ -1,0 +1,28 @@
+# meklasCase Configuration
+# Advanced case plugin with rotation system and fHolo integration
+
+# Rotation settings
+resetAtFixedTime: true  # true = reset at fixed time, false = reset by window hours
+fixedTime: "04:00"     # Time in HH:MM format (24h)
+windowHours: 24        # Hours between rotations (only if resetAtFixedTime is false)
+
+# Quick open feature
+quickOpen: true        # Allow shift+right click for instant opening (no animation)
+
+# Sound settings
+sounds:
+  noKey: ENTITY_VILLAGER_NO      # Sound when player doesn't have key
+  spin: UI_BUTTON_CLICK          # Sound during spin animation
+  win: ENTITY_PLAYER_LEVELUP     # Sound when player wins
+
+# Broadcast settings
+broadcast:
+  enabled: true
+  messages:
+    win: "{player} wygrał {item} x{amount} z {case}"
+    top: "{player} pobił TOP DROP! {item} x{amount}"
+    rotation: "Nowy dzień! Dziś wysoka szansa na {boost_item}"
+
+# Plugin info
+version: 1.0.0
+author: meklas
