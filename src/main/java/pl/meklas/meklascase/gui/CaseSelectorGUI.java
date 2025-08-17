@@ -124,12 +124,12 @@ public class CaseSelectorGUI implements InventoryHolder {
         if (prevPage != null && prevPage.hasItemMeta()) {
             ItemMeta meta = prevPage.getItemMeta();
             List<String> lore = new ArrayList<>();
-            lore.add("§7Page: §e" + (currentPage + 1) + "§7/§e" + Math.max(1, totalPages));
+            lore.add("§7Strona: §e" + (currentPage + 1) + "§7/§e" + Math.max(1, totalPages));
             lore.add("");
             if (currentPage > 0) {
-                lore.add("§8Click to go to previous page");
+                lore.add("§8Kliknij aby przejść do poprzedniej strony");
             } else {
-                lore.add("§8No previous page");
+                lore.add("§8Brak poprzedniej strony");
             }
             meta.setLore(lore);
             prevPage.setItemMeta(meta);
@@ -139,12 +139,12 @@ public class CaseSelectorGUI implements InventoryHolder {
         if (nextPage != null && nextPage.hasItemMeta()) {
             ItemMeta meta = nextPage.getItemMeta();
             List<String> lore = new ArrayList<>();
-            lore.add("§7Page: §e" + (currentPage + 1) + "§7/§e" + Math.max(1, totalPages));
+            lore.add("§7Strona: §e" + (currentPage + 1) + "§7/§e" + Math.max(1, totalPages));
             lore.add("");
             if (currentPage < totalPages - 1) {
-                lore.add("§8Click to go to next page");
+                lore.add("§8Kliknij aby przejść do następnej strony");
             } else {
-                lore.add("§8No next page");
+                lore.add("§8Brak następnej strony");
             }
             meta.setLore(lore);
             nextPage.setItemMeta(meta);
@@ -175,39 +175,37 @@ public class CaseSelectorGUI implements InventoryHolder {
             meta.setDisplayName("§6§l" + caseObj.getName());
             
             List<String> lore = new ArrayList<>();
-            lore.add("§7Type: §e" + caseObj.getType().name());
-            lore.add("§7Status: " + (caseObj.isEnabled() ? "§aEnabled" : "§cDisabled"));
-            lore.add("§7Total Drops: §e" + caseObj.getItems().size());
+            lore.add("§7Typ: §e" + caseObj.getType().name());
+            lore.add("§7Status: " + (caseObj.isEnabled() ? "§aWłączona" : "§cWyłączona"));
+            lore.add("§7Łączne Dropy: §e" + caseObj.getItems().size());
             
             if (!caseObj.getItems().isEmpty()) {
-                // Calculate total weight and show some stats
                 double totalWeight = caseObj.getItems().stream().mapToDouble(CaseItem::getWeight).sum();
-                lore.add("§7Total Weight: §e" + String.format("%.2f", totalWeight));
+                lore.add("§7Łączna Waga: §e" + String.format("%.2f", totalWeight));
                 
-                // Show rarest drop
                 Optional<CaseItem> rarest = caseObj.getItems().stream()
                     .min(Comparator.comparingDouble(CaseItem::getWeight));
                 if (rarest.isPresent()) {
                     double rarestChance = (rarest.get().getWeight() / totalWeight) * 100;
-                    lore.add("§7Rarest Drop: §e" + String.format("%.2f%%", rarestChance));
+                    lore.add("§7Najrzadszy Drop: §e" + String.format("%.2f%%", rarestChance));
                 }
             } else {
-                lore.add("§8No drops configured");
+                lore.add("§8Brak skonfigurowanych dropów");
             }
             
             if (caseObj.getLocation() != null) {
-                lore.add("§7Location: §e" + caseObj.getLocation().getWorld().getName() + 
+                lore.add("§7Lokacja: §e" + caseObj.getLocation().getWorld().getName() + 
                         " §8(" + caseObj.getLocation().getBlockX() + ", " + 
                         caseObj.getLocation().getBlockY() + ", " + 
                         caseObj.getLocation().getBlockZ() + ")");
             } else {
-                lore.add("§7Location: §8Not set");
+                lore.add("§7Lokacja: §8Nie ustawiona");
             }
             
             lore.add("");
-            lore.add("§8Left click: Manage drops");
-            lore.add("§8Right click: Toggle enabled");
-            lore.add("§8Shift+Right: Delete case");
+            lore.add("§8Lewy klik: Zarządzaj dropami");
+            lore.add("§8Prawy klik: Przełącz status");
+            lore.add("§8Shift+Prawy: Usuń skrzynkę");
             
             meta.setLore(lore);
             displayItem.setItemMeta(meta);
@@ -254,11 +252,9 @@ public class CaseSelectorGUI implements InventoryHolder {
             }
             
         } else if (slot == CREATE_CASE_SLOT) {
-            // TODO: Implement case creation GUI
-            MessageUtils.sendMessage(player, "§eCase creation GUI coming soon!");
+            MessageUtils.sendMessage(player, "§eGUI tworzenia skrzynki wkrótce!");
             
         } else {
-            // Check if clicked on a case slot
             for (int i = 0; i < CASE_SLOTS.length; i++) {
                 if (CASE_SLOTS[i] == slot) {
                     Collection<Case> allCases = plugin.getCaseManager().getAllCases();
@@ -270,25 +266,22 @@ public class CaseSelectorGUI implements InventoryHolder {
                         Case clickedCase = caseList.get(caseIndex);
                         
                         if (clickType == ClickType.LEFT) {
-                            // Open drop management for this case
                             new DropManagementGUI(plugin, player, clickedCase).open();
                             
                         } else if (clickType == ClickType.RIGHT) {
-                            // Toggle case enabled status
                             clickedCase.setEnabled(!clickedCase.isEnabled());
                             plugin.getCaseManager().saveCase(clickedCase);
                             updateCaseDisplay();
-                            MessageUtils.sendMessage(player, "§aCase " + clickedCase.getName() + 
-                                " is now " + (clickedCase.isEnabled() ? "§aenabled" : "§cdisabled") + "§a!");
+                            MessageUtils.sendMessage(player, "§aSkrzynka " + clickedCase.getName() + 
+                                " jest teraz " + (clickedCase.isEnabled() ? "§awłączona" : "§cwyłączona") + "§a!");
                             
                         } else if (clickType == ClickType.SHIFT_RIGHT) {
-                            // Confirm and delete case
                             if (player.isSneaking()) {
                                 plugin.getCaseManager().removeCase(clickedCase.getName());
                                 updateCaseDisplay();
-                                MessageUtils.sendMessage(player, "§cCase " + clickedCase.getName() + " deleted!");
+                                MessageUtils.sendMessage(player, "§cSkrzynka " + clickedCase.getName() + " usunięta!");
                             } else {
-                                MessageUtils.sendMessage(player, "§eHold shift and right-click again to confirm deletion of case: " + clickedCase.getName());
+                                MessageUtils.sendMessage(player, "§eTrzymaj shift i kliknij ponownie prawym aby potwierdzić usunięcie skrzynki: " + clickedCase.getName());
                             }
                         }
                     }

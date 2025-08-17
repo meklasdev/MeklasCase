@@ -492,12 +492,12 @@ public class DropEditorGUI implements InventoryHolder {
             .withFirstPrompt(new StringPrompt() {
                 @Override
                 public String getPromptText(ConversationContext context) {
-                    return "§aEnter a new lore line (or 'cancel' to cancel):";
+                    return "§aWpisz nową linię opisu (lub 'anuluj' aby anulować):";
                 }
                 
                 @Override
                 public Prompt acceptInput(ConversationContext context, String input) {
-                    if ("cancel".equalsIgnoreCase(input)) {
+                    if ("anuluj".equalsIgnoreCase(input) || "cancel".equalsIgnoreCase(input)) {
                         return END_OF_CONVERSATION;
                     }
                     currentLore.add(input.replace("&", "§"));
@@ -522,7 +522,7 @@ public class DropEditorGUI implements InventoryHolder {
             .withFirstPrompt(new NumericPrompt() {
                 @Override
                 public String getPromptText(ConversationContext context) {
-                    return "§aEnter the amount (1-64):";
+                    return "§aWpisz ilość (1-64):";
                 }
                 
                 @Override
@@ -552,7 +552,7 @@ public class DropEditorGUI implements InventoryHolder {
             .withFirstPrompt(new NumericPrompt() {
                 @Override
                 public String getPromptText(ConversationContext context) {
-                    return "§aEnter the weight (0.01 or higher):";
+                    return "§aWpisz wagę (0.01 lub wyższa):";
                 }
                 
                 @Override

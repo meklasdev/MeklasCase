@@ -46,14 +46,13 @@ public class LoreEditorGUI implements InventoryHolder {
         this.player = player;
         this.parentGUI = parentGUI;
         this.loreLines = new ArrayList<>(parentGUI.getCurrentLore());
-        this.inventory = Bukkit.createInventory(this, 54, "§6§lLore Editor");
+        this.inventory = Bukkit.createInventory(this, 54, "§6§lEdytor Opisu");
         
         setupGUI();
         updateLoreDisplay();
     }
     
     private void setupGUI() {
-        // Fill borders
         ItemStack borderPane = createItem(Material.GRAY_STAINED_GLASS_PANE, " ", null);
         for (int i = 0; i < 54; i++) {
             if (i < 9 || i >= 45 || i % 9 == 0 || i % 9 == 8) {
@@ -61,63 +60,58 @@ public class LoreEditorGUI implements InventoryHolder {
             }
         }
         
-        // Back button
         ItemStack backButton = createItem(
             Material.BARRIER,
-            "§c§lBack",
-            Arrays.asList("§7Return to drop editor without saving")
+            "§c§lPowrót",
+            Arrays.asList("§7Powróć do edytora dropów bez zapisywania")
         );
         inventory.setItem(BACK_SLOT, backButton);
         
-        // Save button
         ItemStack saveButton = createItem(
             Material.EMERALD,
-            "§a§lSave & Return",
+            "§a§lZapisz i Powróć",
             Arrays.asList(
-                "§7Save lore changes and return",
-                "§7to drop editor",
+                "§7Zapisz zmiany w opisie i powróć",
+                "§7do edytora dropów",
                 "",
-                "§8Click to save and return"
+                "§8Kliknij aby zapisać i powrócić"
             )
         );
         inventory.setItem(SAVE_SLOT, saveButton);
         
-        // Clear all button
         ItemStack clearButton = createItem(
             Material.TNT,
-            "§c§lClear All Lore",
+            "§c§lWyczyść Cały Opis",
             Arrays.asList(
-                "§7Remove all lore lines",
+                "§7Usuń wszystkie linie opisu",
                 "",
-                "§8Click to clear all lore"
+                "§8Kliknij aby wyczyścić cały opis"
             )
         );
         inventory.setItem(CLEAR_ALL_SLOT, clearButton);
         
-        // Add line button
         ItemStack addButton = createItem(
             Material.EMERALD,
-            "§a§lAdd Lore Line",
+            "§a§lDodaj Linię Opisu",
             Arrays.asList(
-                "§7Add a new lore line",
+                "§7Dodaj nową linię opisu",
                 "",
-                "§8Click to add new line"
+                "§8Kliknij aby dodać nową linię"
             )
         );
         inventory.setItem(ADD_LINE_SLOT, addButton);
         
-        // Navigation buttons
         ItemStack prevPage = createItem(
             Material.ARROW,
-            "§a§lPrevious Page",
-            Arrays.asList("§8Click to go to previous page")
+            "§a§lPoprzednia Strona",
+            Arrays.asList("§8Kliknij aby przejść do poprzedniej strony")
         );
         inventory.setItem(PREV_PAGE_SLOT, prevPage);
         
         ItemStack nextPage = createItem(
             Material.ARROW,
-            "§a§lNext Page",
-            Arrays.asList("§8Click to go to next page")
+            "§a§lNastępna Strona",
+            Arrays.asList("§8Kliknij aby przejść do następnej strony")
         );
         inventory.setItem(NEXT_PAGE_SLOT, nextPage);
     }
@@ -135,13 +129,13 @@ public class LoreEditorGUI implements InventoryHolder {
         if (prevPage != null && prevPage.hasItemMeta()) {
             ItemMeta meta = prevPage.getItemMeta();
             List<String> lore = new ArrayList<>();
-            lore.add("§7Page: §e" + (currentPage + 1) + "§7/§e" + Math.max(1, totalPages));
-            lore.add("§7Lines: §e" + loreLines.size());
+            lore.add("§7Strona: §e" + (currentPage + 1) + "§7/§e" + Math.max(1, totalPages));
+            lore.add("§7Linie: §e" + loreLines.size());
             lore.add("");
             if (currentPage > 0) {
-                lore.add("§8Click to go to previous page");
+                lore.add("§8Kliknij aby przejść do poprzedniej strony");
             } else {
-                lore.add("§8No previous page");
+                lore.add("§8Brak poprzedniej strony");
             }
             meta.setLore(lore);
             prevPage.setItemMeta(meta);
@@ -151,13 +145,13 @@ public class LoreEditorGUI implements InventoryHolder {
         if (nextPage != null && nextPage.hasItemMeta()) {
             ItemMeta meta = nextPage.getItemMeta();
             List<String> lore = new ArrayList<>();
-            lore.add("§7Page: §e" + (currentPage + 1) + "§7/§e" + Math.max(1, totalPages));
-            lore.add("§7Lines: §e" + loreLines.size());
+            lore.add("§7Strona: §e" + (currentPage + 1) + "§7/§e" + Math.max(1, totalPages));
+            lore.add("§7Linie: §e" + loreLines.size());
             lore.add("");
             if (currentPage < totalPages - 1) {
-                lore.add("§8Click to go to next page");
+                lore.add("§8Kliknij aby przejść do następnej strony");
             } else {
-                lore.add("§8No next page");
+                lore.add("§8Brak następnej strony");
             }
             meta.setLore(lore);
             nextPage.setItemMeta(meta);
@@ -231,14 +225,14 @@ public class LoreEditorGUI implements InventoryHolder {
             
         } else if (slot == SAVE_SLOT) {
             parentGUI.setCurrentLore(new ArrayList<>(loreLines));
-            MessageUtils.sendMessage(player, "§aLore saved!");
+            MessageUtils.sendMessage(player, "§aOpis zapisany!");
             parentGUI.open();
             
         } else if (slot == CLEAR_ALL_SLOT) {
             loreLines.clear();
             currentPage = 0;
             updateLoreDisplay();
-            MessageUtils.sendMessage(player, "§cAll lore lines cleared!");
+            MessageUtils.sendMessage(player, "§cWszystkie linie opisu wyczyszczone!");
             
         } else if (slot == ADD_LINE_SLOT) {
             startAddLineConversation();
@@ -318,12 +312,12 @@ public class LoreEditorGUI implements InventoryHolder {
             .withFirstPrompt(new StringPrompt() {
                 @Override
                 public String getPromptText(ConversationContext context) {
-                    return "§aEnter the new lore line (use & for colors, or 'cancel' to cancel):";
+                    return "§aWpisz nową linię opisu (użyj & dla kolorów, lub 'anuluj' aby anulować):";
                 }
                 
                 @Override
                 public Prompt acceptInput(ConversationContext context, String input) {
-                    if ("cancel".equalsIgnoreCase(input)) {
+                    if ("anuluj".equalsIgnoreCase(input) || "cancel".equalsIgnoreCase(input)) {
                         return END_OF_CONVERSATION;
                     }
                     loreLines.add(input.replace("&", "§"));
@@ -350,12 +344,12 @@ public class LoreEditorGUI implements InventoryHolder {
             .withFirstPrompt(new StringPrompt() {
                 @Override
                 public String getPromptText(ConversationContext context) {
-                    return "§aEdit lore line (current: §e" + currentLine + "§a) or 'cancel' to cancel:";
+                    return "§aEdytuj linię opisu (obecna: §e" + currentLine + "§a) lub 'anuluj' aby anulować:";
                 }
                 
                 @Override
                 public Prompt acceptInput(ConversationContext context, String input) {
-                    if ("cancel".equalsIgnoreCase(input)) {
+                    if ("anuluj".equalsIgnoreCase(input) || "cancel".equalsIgnoreCase(input)) {
                         return END_OF_CONVERSATION;
                     }
                     loreLines.set(lineIndex, input.replace("&", "§"));

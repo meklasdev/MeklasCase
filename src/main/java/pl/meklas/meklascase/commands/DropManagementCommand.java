@@ -24,25 +24,22 @@ public class DropManagementCommand {
     
     @Execute
     public void execute(@Context Player player) {
-        // Open case selector GUI
         new CaseSelectorGUI(plugin, player).open();
-        MessageUtils.sendMessage(player, "§aOpening drop management interface...");
+        MessageUtils.sendMessage(player, "§aOtwieranie interfejsu zarządzania dropami...");
     }
     
     @Execute
     public void executeWithCase(@Context Player player, @OptionalArg String caseName) {
         if (caseName == null) {
-            // Open case selector GUI
             new CaseSelectorGUI(plugin, player).open();
-            MessageUtils.sendMessage(player, "§aOpening drop management interface...");
+            MessageUtils.sendMessage(player, "§aOtwieranie interfejsu zarządzania dropami...");
             return;
         }
         
-        // Try to find the specific case
         Case targetCase = plugin.getCaseManager().getCase(caseName);
         if (targetCase == null) {
-            MessageUtils.sendMessage(player, "§cCase '§e" + caseName + "§c' not found!");
-            MessageUtils.sendMessage(player, "§7Available cases: §e" + 
+            MessageUtils.sendMessage(player, "§cSkrzynka '§e" + caseName + "§c' nie została znaleziona!");
+            MessageUtils.sendMessage(player, "§7Dostępne skrzynki: §e" + 
                 String.join("§7, §e", plugin.getCaseManager().getAllCases()
                     .stream()
                     .map(Case::getName)
@@ -50,8 +47,7 @@ public class DropManagementCommand {
             return;
         }
         
-        // Open drop management for specific case
         new DropManagementGUI(plugin, player, targetCase).open();
-        MessageUtils.sendMessage(player, "§aOpening drop management for case: §e" + caseName);
+        MessageUtils.sendMessage(player, "§aOtwieranie zarządzania dropami dla skrzynki: §e" + caseName);
     }
 }

@@ -37,7 +37,7 @@ public class EnchantmentSelectorGUI implements InventoryHolder {
         this.plugin = plugin;
         this.player = player;
         this.parentGUI = parentGUI;
-        this.inventory = Bukkit.createInventory(this, 54, "§6§lSelect Enchantment");
+        this.inventory = Bukkit.createInventory(this, 54, "§6§lWybierz Zaklęcie");
         
         setupGUI();
     }
@@ -54,8 +54,8 @@ public class EnchantmentSelectorGUI implements InventoryHolder {
         // Back button
         ItemStack backButton = createItem(
             Material.BARRIER,
-            "§c§lBack",
-            Arrays.asList("§7Return to drop editor")
+            "§c§lPowrót",
+            Arrays.asList("§7Powróć do edytora dropów")
         );
         inventory.setItem(BACK_SLOT, backButton);
         

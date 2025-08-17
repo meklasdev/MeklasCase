@@ -37,7 +37,7 @@ public class EnchantmentManagerGUI implements InventoryHolder {
         this.plugin = plugin;
         this.player = player;
         this.parentGUI = parentGUI;
-        this.inventory = Bukkit.createInventory(this, 54, "§6§lManage Enchantments");
+        this.inventory = Bukkit.createInventory(this, 54, "§6§lZarządzaj Zaklęciami");
         
         setupGUI();
         updateEnchantmentDisplay();

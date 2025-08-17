@@ -42,15 +42,15 @@ public class MaterialSelectorGUI implements InventoryHolder {
     private static final int SEARCH_SLOT = 4;
     
     private enum MaterialCategory {
-        ALL("All Materials", Material.CHEST),
-        BLOCKS("Blocks", Material.STONE),
-        ITEMS("Items", Material.DIAMOND),
-        TOOLS("Tools & Weapons", Material.DIAMOND_SWORD),
-        ARMOR("Armor", Material.DIAMOND_CHESTPLATE),
-        FOOD("Food", Material.BREAD),
+        ALL("Wszystkie Materiały", Material.CHEST),
+        BLOCKS("Bloki", Material.STONE),
+        ITEMS("Przedmioty", Material.DIAMOND),
+        TOOLS("Narzędzia i Bronie", Material.DIAMOND_SWORD),
+        ARMOR("Zbroja", Material.DIAMOND_CHESTPLATE),
+        FOOD("Jedzenie", Material.BREAD),
         REDSTONE("Redstone", Material.REDSTONE),
-        DECORATION("Decoration", Material.FLOWER_POT),
-        MISC("Miscellaneous", Material.EXPERIENCE_BOTTLE);
+        DECORATION("Dekoracje", Material.FLOWER_POT),
+        MISC("Różne", Material.EXPERIENCE_BOTTLE);
         
         private final String displayName;
         private final Material icon;
@@ -68,14 +68,13 @@ public class MaterialSelectorGUI implements InventoryHolder {
         this.plugin = plugin;
         this.player = player;
         this.parentGUI = parentGUI;
-        this.inventory = Bukkit.createInventory(this, 54, "§6§lMaterial Selector");
+        this.inventory = Bukkit.createInventory(this, 54, "§6§lSelektor Materiałów");
         
         setupGUI();
         updateMaterialDisplay();
     }
     
     private void setupGUI() {
-        // Fill borders
         ItemStack borderPane = createItem(Material.GRAY_STAINED_GLASS_PANE, " ", null);
         for (int i = 0; i < 54; i++) {
             if (i < 9 || i >= 45 || i % 9 == 0 || i % 9 == 8) {
@@ -83,41 +82,37 @@ public class MaterialSelectorGUI implements InventoryHolder {
             }
         }
         
-        // Back button
         ItemStack backButton = createItem(
             Material.BARRIER,
-            "§c§lBack",
-            Arrays.asList("§7Return to drop editor")
+            "§c§lPowrót",
+            Arrays.asList("§7Powróć do edytora dropów")
         );
         inventory.setItem(BACK_SLOT, backButton);
         
-        // Search button
         ItemStack searchButton = createItem(
             Material.COMPASS,
-            "§a§lSearch Materials",
+            "§a§lSzukaj Materiałów",
             Arrays.asList(
-                "§7Search for specific materials",
+                "§7Szukaj konkretnych materiałów",
                 "",
-                "§8Click to search by name"
+                "§8Kliknij aby szukać po nazwie"
             )
         );
         inventory.setItem(SEARCH_SLOT, searchButton);
         
-        // Category selector
         updateCategoryButton();
         
-        // Navigation buttons
         ItemStack prevPage = createItem(
             Material.ARROW,
-            "§a§lPrevious Page",
-            Arrays.asList("§8Click to go to previous page")
+            "§a§lPoprzednia Strona",
+            Arrays.asList("§8Kliknij aby przejść do poprzedniej strony")
         );
         inventory.setItem(PREV_PAGE_SLOT, prevPage);
         
         ItemStack nextPage = createItem(
             Material.ARROW,
-            "§a§lNext Page",
-            Arrays.asList("§8Click to go to next page")
+            "§a§lNastępna Strona",
+            Arrays.asList("§8Kliknij aby przejść do następnej strony")
         );
         inventory.setItem(NEXT_PAGE_SLOT, nextPage);
     }
@@ -125,11 +120,11 @@ public class MaterialSelectorGUI implements InventoryHolder {
     private void updateCategoryButton() {
         ItemStack categoryButton = createItem(
             currentCategory.getIcon(),
-            "§e§lCategory: " + currentCategory.getDisplayName(),
+            "§e§lKategoria: " + currentCategory.getDisplayName(),
             Arrays.asList(
-                "§7Current category: §e" + currentCategory.getDisplayName(),
+                "§7Obecna kategoria: §e" + currentCategory.getDisplayName(),
                 "",
-                "§8Click to change category"
+                "§8Kliknij aby zmienić kategorię"
             )
         );
         inventory.setItem(CATEGORY_SLOT, categoryButton);
@@ -149,12 +144,12 @@ public class MaterialSelectorGUI implements InventoryHolder {
         if (prevPage != null && prevPage.hasItemMeta()) {
             ItemMeta meta = prevPage.getItemMeta();
             List<String> lore = new ArrayList<>();
-            lore.add("§7Page: §e" + (currentPage + 1) + "§7/§e" + Math.max(1, totalPages));
+            lore.add("§7Strona: §e" + (currentPage + 1) + "§7/§e" + Math.max(1, totalPages));
             lore.add("");
             if (currentPage > 0) {
-                lore.add("§8Click to go to previous page");
+                lore.add("§8Kliknij aby przejść do poprzedniej strony");
             } else {
-                lore.add("§8No previous page");
+                lore.add("§8Brak poprzedniej strony");
             }
             meta.setLore(lore);
             prevPage.setItemMeta(meta);
@@ -164,12 +159,12 @@ public class MaterialSelectorGUI implements InventoryHolder {
         if (nextPage != null && nextPage.hasItemMeta()) {
             ItemMeta meta = nextPage.getItemMeta();
             List<String> lore = new ArrayList<>();
-            lore.add("§7Page: §e" + (currentPage + 1) + "§7/§e" + Math.max(1, totalPages));
+            lore.add("§7Strona: §e" + (currentPage + 1) + "§7/§e" + Math.max(1, totalPages));
             lore.add("");
             if (currentPage < totalPages - 1) {
-                lore.add("§8Click to go to next page");
+                lore.add("§8Kliknij aby przejść do następnej strony");
             } else {
-                lore.add("§8No next page");
+                lore.add("§8Brak następnej strony");
             }
             meta.setLore(lore);
             nextPage.setItemMeta(meta);
@@ -267,20 +262,20 @@ public class MaterialSelectorGUI implements InventoryHolder {
             meta.setDisplayName("§a§l" + formatMaterialName(material));
             
             List<String> lore = new ArrayList<>();
-            lore.add("§7Material: §e" + material.name());
-            lore.add("§7Type: §e" + (material.isBlock() ? "Block" : "Item"));
+            lore.add("§7Materiał: §e" + material.name());
+            lore.add("§7Typ: §e" + (material.isBlock() ? "Blok" : "Przedmiot"));
             
             if (material.getMaxStackSize() != 64) {
-                lore.add("§7Max Stack: §e" + material.getMaxStackSize());
+                lore.add("§7Maks Stos: §e" + material.getMaxStackSize());
             }
             
             if (material == parentGUI.getCurrentMaterial()) {
                 lore.add("");
-                lore.add("§a§l✓ Currently Selected");
+                lore.add("§a§l✓ Obecnie Wybrany");
             }
             
             lore.add("");
-            lore.add("§8Click to select this material");
+            lore.add("§8Kliknij aby wybrać ten materiał");
             
             meta.setLore(lore);
             item.setItemMeta(meta);
@@ -324,15 +319,13 @@ public class MaterialSelectorGUI implements InventoryHolder {
             parentGUI.open();
             
         } else if (slot == SEARCH_SLOT) {
-            // TODO: Implement material search
-            MessageUtils.sendMessage(player, "§eMaterial search coming soon! Use category filter for now.");
+            MessageUtils.sendMessage(player, "§eSzukanie materiałów wkrótce! Na razie użyj filtra kategorii.");
             
         } else if (slot == CATEGORY_SLOT) {
-            // Cycle through categories
             MaterialCategory[] categories = MaterialCategory.values();
             int currentIndex = Arrays.asList(categories).indexOf(currentCategory);
             currentCategory = categories[(currentIndex + 1) % categories.length];
-            currentPage = 0; // Reset to first page
+            currentPage = 0;
             updateCategoryButton();
             updateMaterialDisplay();
             
@@ -349,7 +342,6 @@ public class MaterialSelectorGUI implements InventoryHolder {
             }
             
         } else {
-            // Check if clicked on a material slot
             for (int i = 0; i < MATERIAL_SLOTS.length; i++) {
                 if (MATERIAL_SLOTS[i] == slot) {
                     List<Material> materials = getFilteredMaterials();
@@ -358,7 +350,7 @@ public class MaterialSelectorGUI implements InventoryHolder {
                     if (materialIndex < materials.size()) {
                         Material selectedMaterial = materials.get(materialIndex);
                         parentGUI.setCurrentMaterial(selectedMaterial);
-                        MessageUtils.sendMessage(player, "§aMaterial selected: §e" + formatMaterialName(selectedMaterial));
+                        MessageUtils.sendMessage(player, "§aMateriał wybrany: §e" + formatMaterialName(selectedMaterial));
                         parentGUI.open();
                     }
                     break;
