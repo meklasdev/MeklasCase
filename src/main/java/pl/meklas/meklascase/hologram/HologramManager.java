@@ -28,7 +28,7 @@ public class HologramManager {
         this.holograms = new HashMap<>();
         this.animations = new HashMap<>();
         
-        // Check if fHolo is available
+
         checkFHoloAvailability();
     }
     
@@ -46,17 +46,17 @@ public class HologramManager {
     public void initializeHolograms() {
         if (!fHoloAvailable) return;
         
-        // Remove existing holograms first
+
         removeAllHolograms();
         
-        // Create holograms for all cases with locations
+
         for (Case caseObj : plugin.getCaseManager().getCases().values()) {
             if (caseObj.getLocation() != null && isHologramEnabled(caseObj.getName())) {
                 createHologram(caseObj.getName());
             }
         }
         
-        // Start animation task
+
         startAnimations();
         
         plugin.getLogger().info("§a[HologramManager] Zainicjalizowano " + holograms.size() + " animowanych hologramów");

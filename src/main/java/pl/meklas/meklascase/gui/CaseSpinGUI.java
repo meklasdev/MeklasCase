@@ -44,13 +44,13 @@ public class CaseSpinGUI implements InventoryHolder {
         this.player = player;
         this.caseObj = caseObj;
         
-        // Get active rotation profile
+
         RotationProfile profile = plugin.getRotationManager().getActiveProfile(caseObj.getName());
         
-        // Generate final item first
+
         this.finalItem = caseObj.drawItem(profile);
         
-        // Generate spin items (more items for longer animation)
+
         this.spinItems = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             if (i == 45) {

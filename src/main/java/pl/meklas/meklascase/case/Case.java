@@ -38,16 +38,12 @@ public class Case {
         this.enabled = true;
     }
     
-    /**
-     * Draws a random item from the case based on weights
-     */
+
     public CaseItem drawItem() {
         return drawItem(null);
     }
     
-    /**
-     * Draws a random item with optional rotation profile applied
-     */
+
     public CaseItem drawItem(RotationProfile profile) {
         List<CaseItem> itemsToUse = items;
         

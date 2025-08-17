@@ -1,21 +1,21 @@
-# meklasCase Configuration
-# Advanced case plugin with rotation system and fHolo integration
+# °€{¢×®[|[{€ ₥€₭ⱠⱫ₴
+# ░▒▓█ ₥€₭ⱠⱫ₴ ¢Ⱨ₳Ø₴ █▓▒░
 
-# Rotation settings
-resetAtFixedTime: true  # true = reset at fixed time, false = reset by window hours
-fixedTime: "04:00"     # Time in HH:MM format (24h)
-windowHours: 24        # Hours between rotations (only if resetAtFixedTime is false)
+# ₦Ø₮₳₵Ɉⱥ ₴Ɏ₴₮€₥
+resetAtFixedTime: true
+fixedTime: "04:00"
+windowHours: 24
 
-# Quick open feature
-quickOpen: true        # Allow shift+right click for instant opening (no animation)
+# ₴Ƶ¥฿₭ł€ Ø₮₩ł€Ɽ₳₦ł€
+quickOpen: true
 
-# Sound settings
+# ĐŹ₩ł€₭ł
 sounds:
-  noKey: ENTITY_VILLAGER_NO      # Sound when player doesn't have key
-  spin: UI_BUTTON_CLICK          # Sound during spin animation
-  win: ENTITY_PLAYER_LEVELUP     # Sound when player wins
+  noKey: ENTITY_VILLAGER_NO
+  spin: UI_BUTTON_CLICK
+  win: ENTITY_PLAYER_LEVELUP
 
-# Broadcast settings
+# ₳₦Ø₦₴Ɏ ₥€₭ⱠⱫ₴
 broadcast:
   enabled: true
   messages:
@@ -23,23 +23,23 @@ broadcast:
     top: "{player} pobił TOP DROP! {item} x{amount}"
     rotation: "Nowy dzień! Dziś wysoka szansa na {boost_item}"
 
-# Hologram animation settings
+# ĦØⱠØ₲Ɽ₳₥ ₳₦ł₥₳₵ɾ€
 holograms:
   enabled: true
   animations:
     enabled: true
-    updateInterval: 10  # ticks (0.5 seconds)
+    updateInterval: 10
     effects:
-      rainbow: true      # Rainbow text effects
-      particles: true    # Floating particles
-      fire: true         # Fire effects for boosts
-      glitch: true       # Glitch effects for special items
-      neon: true         # Neon glow effects
-      constellation: true # Star constellation effects
-      digitalRain: true  # Matrix-style rain
-      pulsingBorder: true # Pulsing borders
-      waveAnimation: true # Wave text animation
+      rainbow: true
+      particles: true
+      fire: true
+      glitch: true
+      neon: true
+      constellation: true
+      digitalRain: true
+      pulsingBorder: true
+      waveAnimation: true
 
-# Plugin info
+# ₥€₭ⱠⱫ₴ ł₦₣Ø
 version: 1.0.0
 author: meklas

@@ -1,7 +1,7 @@
-# Example case configuration
+# ₥€₭ⱠⱫ₴ €Ӿ₳₥₱Ⱡ€ ¢₳₴€
 type: LOOTBOX
 
-# Key configuration
+# ₭ⱠɄ¢Ⱬ ₥€₭ⱠⱫ₴
 key:
   material: TRIPWIRE_HOOK
   name: "&a&lKlucz do ExampleCase"
@@ -12,7 +12,7 @@ key:
     - "&e&lKliknij prawym przyciskiem myszy na skrzynkę"
   glow: true
 
-# Items that can be won
+# ₦₳₲ⱤØĐɎ ₥€₭ⱠⱫ₴
 items:
   - item: DIAMOND
     amount: 1
@@ -54,7 +54,7 @@ items:
     enchantments:
       UNBREAKING: 1
 
-# Rotation profiles for daily changes
+# ₦Ø₮₳₵ɾ€ ₥€₭ⱠⱫ₴
 rotation:
   profiles:
     day1:

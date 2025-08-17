@@ -80,7 +80,7 @@ public class RotationManager {
             schedulerTask.cancel();
         }
         
-        // Run every minute to check for rotations
+
         schedulerTask = new BukkitRunnable() {
             @Override
             public void run() {

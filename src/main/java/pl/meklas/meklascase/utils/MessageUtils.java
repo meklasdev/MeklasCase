@@ -18,7 +18,7 @@ public class MessageUtils {
     private final MeklasCasePlugin plugin;
     private final MiniMessage miniMessage;
     
-    // Color schemes
+
     public static final String PRIMARY_GRADIENT = "<gradient:#00ff87:#60efff>";
     public static final String SECONDARY_GRADIENT = "<gradient:#667eea:#764ba2>";
     public static final String SUCCESS_GRADIENT = "<gradient:#56ab2f:#a8e6cf>";
@@ -26,7 +26,7 @@ public class MessageUtils {
     public static final String WARNING_GRADIENT = "<gradient:#f093fb:#f5576c>";
     public static final String GOLD_GRADIENT = "<gradient:#ffd89b:#19547b>";
     
-    // Icons and symbols
+
     public static final String SUCCESS_ICON = "✓";
     public static final String ERROR_ICON = "✗";
     public static final String WARNING_ICON = "⚠";
@@ -41,26 +41,20 @@ public class MessageUtils {
         this.miniMessage = MiniMessage.miniMessage();
     }
     
-    /**
-     * Sends a beautifully formatted message to player
-     */
+
     public void sendMessage(Player player, String message) {
         Component component = miniMessage.deserialize(message);
         player.sendMessage(component);
     }
     
-    /**
-     * Sends a success message with green gradient
-     */
+
     public void sendSuccess(Player player, String message) {
         String formatted = SUCCESS_GRADIENT + SUCCESS_ICON + " " + message + "</gradient>";
         sendMessage(player, formatted);
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1.2f);
     }
     
-    /**
-     * Sends an error message with red gradient
-     */
+
     public void sendError(Player player, String message) {
         String formatted = ERROR_GRADIENT + ERROR_ICON + " " + message + "</gradient>";
         sendMessage(player, formatted);

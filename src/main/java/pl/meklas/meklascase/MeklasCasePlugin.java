@@ -27,30 +27,30 @@ public class MeklasCasePlugin extends JavaPlugin {
     public void onEnable() {
         instance = this;
         
-        // Initialize message utils first
+
         this.messageUtils = new MessageUtils(this);
         
-        // Initialize configuration system
+
         this.configManager = new ConfigManager(this);
         this.configManager.loadConfigs();
         
-        // Initialize managers
+
         this.caseManager = new CaseManager(this);
         this.rotationManager = new RotationManager(this);
         this.hologramManager = new HologramManager(this);
         
-        // Register listeners
+
         getServer().getPluginManager().registerEvents(new CaseInteractionListener(this), this);
         
-        // Initialize LiteCommands
+
         this.liteCommands = LiteBukkitFactory.builder()
                 .commands(new MeklasCaseCommand(this))
                 .build();
         
-        // Start rotation scheduler
+
         this.rotationManager.startScheduler();
         
-        // Initialize holograms
+
         this.hologramManager.initializeHolograms();
         
         getLogger().info("§a[meklasCase] Plugin został pomyślnie włączony!");
@@ -71,7 +71,7 @@ public class MeklasCasePlugin extends JavaPlugin {
             hologramManager.removeAllHolograms();
         }
         
-        // Save rotation state
+
         if (configManager != null) {
             configManager.saveRotationState();
         }

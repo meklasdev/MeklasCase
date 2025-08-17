@@ -260,7 +260,7 @@ public class MeklasCaseCommand {
         
         plugin.getMessageUtils().sendHeader(player, "Informacje o " + name);
         
-        // Basic info
+
         plugin.getMessageUtils().sendMessage(player, MessageUtils.SECONDARY_GRADIENT + 
             "Typ: " + caseObj.getType().name() + "</gradient>");
         plugin.getMessageUtils().sendMessage(player, MessageUtils.SECONDARY_GRADIENT + 
@@ -272,7 +272,7 @@ public class MeklasCaseCommand {
         plugin.getMessageUtils().sendMessage(player, MessageUtils.SECONDARY_GRADIENT + 
             "Profile rotacji: " + caseObj.getRotationProfiles().size() + "</gradient>");
         
-        // Current rotation info
+
         RotationProfile activeProfile = plugin.getRotationManager().getActiveProfile(name);
         if (activeProfile != null) {
             plugin.getMessageUtils().sendMessage(player, MessageUtils.WARNING_GRADIENT + 
