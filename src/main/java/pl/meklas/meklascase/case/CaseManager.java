@@ -379,4 +379,31 @@ public class CaseManager {
     public List<String> getCaseNames() {
         return new ArrayList<>(cases.keySet());
     }
+    
+    public java.util.Collection<Case> getAllCases() {
+        return cases.values();
+    }
+    
+    public void saveCase(Case caseObj) {
+        if (caseObj != null) {
+            cases.put(caseObj.getName(), caseObj);
+            // Save to configuration file
+            saveCaseToConfig(caseObj);
+        }
+    }
+    
+    private void saveCaseToConfig(Case caseObj) {
+        // For now, just save the existing config
+        // TODO: Implement proper case-to-config serialization
+        plugin.getConfigManager().saveCaseConfig(caseObj.getName());
+    }
+    
+    public void removeCase(String caseName) {
+        Case removedCase = cases.remove(caseName);
+        if (removedCase != null && removedCase.getLocation() != null) {
+            locationToCaseName.remove(removedCase.getLocation());
+        }
+        // Remove from configuration
+        plugin.getConfigManager().deleteCaseConfig(caseName);
+    }
 }
