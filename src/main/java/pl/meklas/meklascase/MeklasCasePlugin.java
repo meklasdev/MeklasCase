@@ -10,6 +10,7 @@ import pl.meklas.meklascase.rotation.RotationManager;
 import pl.meklas.meklascase.hologram.HologramManager;
 import pl.meklas.meklascase.listeners.CaseInteractionListener;
 import pl.meklas.meklascase.utils.MessageUtils;
+import pl.meklas.meklascase.trail.TrailManager;
 
 public class MeklasCasePlugin extends JavaPlugin {
 
@@ -20,6 +21,7 @@ public class MeklasCasePlugin extends JavaPlugin {
     private RotationManager rotationManager;
     private HologramManager hologramManager;
     private MessageUtils messageUtils;
+    private TrailManager trailManager;
     
     private LiteCommands<org.bukkit.command.CommandSender> liteCommands;
 
@@ -38,6 +40,7 @@ public class MeklasCasePlugin extends JavaPlugin {
         this.caseManager = new CaseManager(this);
         this.rotationManager = new RotationManager(this);
         this.hologramManager = new HologramManager(this);
+        this.trailManager = new TrailManager(this);
         
 
         getServer().getPluginManager().registerEvents(new CaseInteractionListener(this), this);
@@ -45,6 +48,7 @@ public class MeklasCasePlugin extends JavaPlugin {
 
         this.liteCommands = LiteBukkitFactory.builder()
                 .commands(new MeklasCaseCommand(this))
+                .commands(new pl.meklas.meklascase.commands.TrailCommand(this))
                 .build();
         
 
@@ -71,6 +75,10 @@ public class MeklasCasePlugin extends JavaPlugin {
             hologramManager.removeAllHolograms();
         }
         
+        if (trailManager != null) {
+            trailManager.shutdown();
+        }
+        
 
         if (configManager != null) {
             configManager.saveRotationState();
@@ -94,6 +102,9 @@ public class MeklasCasePlugin extends JavaPlugin {
             // Reload holograms
             hologramManager.removeAllHolograms();
             hologramManager.initializeHolograms();
+            
+            // Reload trails
+            trailManager.reload();
             
             getLogger().info("§a[meklasCase] Plugin został przeładowany!");
         } catch (Exception e) {
@@ -124,5 +135,9 @@ public class MeklasCasePlugin extends JavaPlugin {
 
     public MessageUtils getMessageUtils() {
         return messageUtils;
+    }
+
+    public TrailManager getTrailManager() {
+        return trailManager;
     }
 }
