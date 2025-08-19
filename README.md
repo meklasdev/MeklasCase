@@ -1,249 +1,120 @@
-
----
-
 # meklasCase
 
-meklasCase to plugin crate dla Paper/Spigot 1.20.6–1.21.
-Umożliwia tworzenie skrzynek z kluczami, animacjami, rotacją dropów co 24h i integracją z fHolo.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Spigot Version](https://img.shields.io/badge/Spigot-1.20.6%2B-brightgreen)](https://www.spigotmc.org/)
+[![Paper Version](https://img.shields.io/badge/Paper-1.20.6%2B-brightgreen)](https://papermc.io/)
 
-Funkcje
+meklasCase is a powerful and flexible crate plugin designed for Paper/Spigot servers running versions 1.20.6 and above. It allows server administrators to create and manage engaging crate systems with keys, stunning spin animations, daily loot rotations, and seamless fHolo integration.
 
-Klasyczne skrzynki typu LOOTBOX i LUCKBLOCK.
+## Features
 
-Rotacja dropów co 24h: zmiana listy nagród albo zmiana szans.
+*   **Crate Types**: Supports classic crate types such as `LOOTBOX` and `LUCKBLOCK`, each offering unique reward mechanics.
+*   **Daily Loot Rotations**: Automatically changes reward lists or drop chances every 24 hours, keeping the crate system fresh and exciting.
+*   **Day Boost System**: Select specific items to have increased drop rates for a set period, displayed prominently in the hologram.
+*   **fHolo Integration**: Automatically displays crate information above the crate block, including name, type, current day's boost, time until the next rotation, and the last top drop.
+*   **Spin Animation**: Engaging spin animation within a 27-slot inventory, or quick opening via Shift + Right-Click.
+*   **Win Broadcast System**: Announces crate wins and top drops to the entire server.
+*   **YAML Configuration**: All aspects of the plugin are configured via easy-to-understand YAML files, eliminating the need for a database.
 
-System boost dnia: wybrane itemy mają większą szansę i są wyświetlane w hologramie.
+## Installation
 
-Hologramy z fHolo automatycznie nad skrzynkami:
+1.  **Download:** Download the latest `meklasCase.jar` from [GitHub Releases](YOUR_GITHUB_REPOSITORY_LINK_HERE/releases).
+2.  **Installation:** Place the `.jar` file into your server's `plugins/` folder.
+3.  **Restart:** Restart your Minecraft server to load the plugin.
+4.  **Configuration:** Configure the plugin by editing the files in the `plugins/meklasCase/` folder.
+5.  **fHolo (Optional):** If you want to use holograms, install the [fHolo](https://www.spigotmc.org/resources/fhologram.578/) plugin.
 
-nazwa i typ skrzynki,
+## Configuration Files
 
-aktualny boost dnia,
+The `meklasCase` plugin uses several YAML files to manage its configuration. Here's a breakdown of each file:
 
-czas do końca rotacji,
+### `config.yml`
 
-ostatni TOP DROP.
+This file contains the general plugin settings.
 
-
-Animacja spin w inventory (27 slotów) lub szybkie otwarcie (Shift+PPM).
-
-Broadcast wygranych i zmian profilu dnia.
-
-Wszystko w YAML, bez bazy danych.
-
-
-
----
-
-Instalacja
-
-1. Pobierz jar meklasCase i wrzuć do folderu plugins/.
-
-
-2. Zrestartuj serwer.
-
-
-3. Skonfiguruj pliki w plugins/meklasCase/.
-
-
-4. Jeśli chcesz hologramy, zainstaluj fHolo.
-
-
-
-
----
-
-Pliki konfiguracyjne
-
-config.yml
-
-resetAtFixedTime: true
-fixedTime: "04:00"
-windowHours: 24
-
-quickOpen: true
-
-sounds:
-  noKey: ENTITY_VILLAGER_NO
-  spin: UI_BUTTON_CLICK
-  win: ENTITY_PLAYER_LEVELUP
-
-broadcast:
-  enabled: true
-  messages:
-    win: "{player} wygrał {item} x{amount} z {case}"
-    top: "{player} pobił TOP DROP! {item} x{amount}"
-    rotation: "Nowy dzień! Dziś wysoka szansa na {boost_item}"
-
-
----
-
-cases/example.yml
-
-type: LOOTBOX
-key:
-  material: TRIPWIRE_HOOK
-  name: "&aKlucz do ExampleCase"
-  lore:
-    - "&7Użyj na skrzynce"
-  glow: true
-
-items:
-  - item: DIAMOND
-    amount: 1
-    weight: 10
-  - item: EMERALD
-    amount: 2
-    weight: 30
-  - item: GOLD_INGOT
-    amount: 8
-    weight: 60
-
-rotation:
-  profiles:
-    day1:
-      description: "Dziś diamenty lecą częściej!"
-      boosts:
-        - item: DIAMOND
-          multiplier: 3.0
-    day2:
-      description: "Zielony dzień"
-      boosts:
-        - item: EMERALD
-          multiplier: 2.0
-    day3:
-      override:
-        - item: ENCHANTED_GOLDEN_APPLE
-          amount: 1
-          weight: 100
-
-
----
-
-locations.yml
-
+yaml
 cases:
   example:
-    world: world
-    x: 100
-    y: 65
-    z: 200
-    hologram:
-      enabled: true
+    lastRotationAt: 2025-08-17T04:00:00Z # Last time the crate was rotated (UTC)
+    activeProfile: day1                # Currently active rotation profile
+    lastTopDrop: "DIAMOND x2"            # Last top drop from the crate
+| Command                      | Description                                           | Permission                |
+| ---------------------------- | ----------------------------------------------------- | ------------------------- |
+| `/meklascase create <name>`   | Creates a new crate configuration file.              | `meklascase.admin`        |
+| `/meklascase delete <name>`   | Deletes a crate configuration file.                   | `meklascase.admin`        |
+| `/meklascase setlocation <name>`| Sets the targeted block as a crate location.        | `meklascase.admin`        |
+| `/meklascase removelocation <name>`| Removes a crate location.                          | `meklascase.admin`        |
+| `/meklascase give <player> <case> <amount>`| Gives keys to a player.                               | `meklascase.admin`        |
+| `/meklascase giveall <case> <amount>`| Gives keys to all online players.                       | `meklascase.admin`        |
+| `/meklascase reload`         | Reloads the plugin configuration.                     | `meklascase.admin`        |
+| `/meklascase enable <name>`   | Enables a crate.                                      | `meklascase.admin`        |
+| `/meklascase disable <name>`  | Disables a crate.                                     | `meklascase.admin`        |
+| `/meklascase rotate now`      | Forces a rotation of all crates.                      | `meklascase.rotate.admin` |
+| `/meklascase boost set <case> <profile> <item> <multiplier>`| Sets the daily boost for a crate (legacy).       | `meklascase.boost.admin`  |
+| `/meklascase info <case>`     | Shows the active profile and time until the next rotation. | `meklascase.admin`        |
 
+## Permissions
 
----
+| Permission               | Description                               |
+| ------------------------ | ----------------------------------------- |
+| `meklascase.admin`       | Grants access to all administrative commands. |
+| `meklascase.rotate.admin`| Allows forcing crate rotations.           |
+| `meklascase.boost.admin` | Allows managing daily boosts (legacy).      |
 
-rotation_state.yml
+## Rotation Logic
 
-cases:
-  example:
-    lastRotationAt: 2025-08-17T04:00:00Z
-    activeProfile: day1
-    lastTopDrop: "DIAMOND x2"
+The plugin supports two rotation modes, configured via `config.yml`:
 
+*   **Fixed Time**: Resets at a specific server time (e.g., `04:00`) determined by the `fixedTime` setting. Enabled if `resetAtFixedTime` is set to `true`.
+*   **Rolling Window**: Resets every `windowHours` (e.g. 24) hours from the last rotation. Enabled if `resetAtFixedTime` is set to `false`.
 
----
+After each rotation, the next profile in the `cases/<case>.yml` file is activated. If the end of the profiles is reached, it loops back to the first profile.
 
-Komendy
+Each profile can either:
 
-Komenda	Opis
+*   **Boost Chances**: Increase the drop rate of specific items by adjusting their `multiplier`.
+*   **Override Loot Table**: Completely replace the existing item list with a new set of items.
 
-/meklascase create <nazwa>	Tworzy skrzynkę
-/meklascase delete <nazwa>	Usuwa skrzynkę
-/meklascase setlocation <nazwa>	Ustawia blok jako skrzynkę
-/meklascase removelocation <nazwa>	Usuwa lokalizację skrzynki
-/meklascase give <gracz> <case> <ilość>	Daje klucze graczowi
-/meklascase giveall <case> <ilość>	Daje klucze wszystkim
-/meklascase reload	Przeładowuje plugin
-/meklascase enable <nazwa>	Włącza skrzynkę
-/meklascase disable <nazwa>	Wyłącza skrzynkę
-/meklascase rotate now	Wymusza rotację
-/meklascase boost set <case> <profil> <item> <multiplier>	Ustawia boost dnia
-/meklascase info <case>	Pokazuje aktywny profil i czas do końca
+## Hologram Information (fHolo)
 
+The plugin utilizes fHolo to display information above each crate.
 
+Default hologram lines:
 
----
+1.  Crate Name
+2.  Crate Type
+3.  Day's Boost: e.g., "Today's boost: DIAMOND x3"
+4.  Time Remaining: e.g., "Remaining time: 12:34:56"
+5.  Last TOP DROP
 
-Uprawnienia
+Available Placeholders:
 
-Permission	Opis
+*   `{case}`: Crate name
+*   `{type}`: Crate type
+*   `{boost_item}`: Boosted item name
+*   `{boost_mult}`: Boost multiplier
+*   `{time_left}`: Time until the next rotation
+*   `{top_item}`: Last top drop item name
+*   `{top_amount}`: Last top drop item amount
 
-meklascase.admin	Dostęp do wszystkich komend
-meklascase.rotate.admin	Wymuszanie rotacji
-meklascase.boost.admin	Zarządzanie boostami
+> **Note**: You can customize the hologram lines and placeholders in your fHolo configuration.
 
+## Edge Cases
 
+*   **Missing Key**: If a player tries to open a crate without a key, a message is displayed, and a sound is played.
+*   **Full Inventory**: If a player's inventory is full, the items drop at their feet.
+*   **Missing fHolo**: The plugin will function without fHolo, but no holograms will be displayed.
+*   **System Time Changes**: The plugin uses UTC time for rotations to prevent issues caused by server time changes.
 
----
+## Contributing
 
-Logika rotacji
+Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request on the [GitHub repository](YOUR_GITHUB_REPOSITORY_LINK_HERE).
 
-fixedTime: reset o stałej godzinie serwera (np. 04:00).
+1.  Fork the repository.
+2.  Create a new branch for your feature or bug fix.
+3.  Make your changes and commit them with descriptive messages.
+4.  Submit a pull request.
 
-windowHours: reset co 24h od ostatniego.
+## License
 
-Po resecie aktywuje się kolejny profil dnia.
-
-Profil dnia może podbić szanse (multiplier) albo całkiem nadpisać tabelę.
-
-
-
----
-
-Hologramy z fHolo
-
-Domyślne linie hologramu:
-
-1. Nazwa skrzynki
-
-
-2. Typ skrzynki
-
-
-3. Boost dnia: np. “Dziś wysoka szansa na DIAMOND x3”
-
-
-4. Czas do końca: “Pozostało 12:34:56”
-
-
-5. Ostatni TOP DROP
-
-
-
-Placeholdery: {case}, {type}, {boost_item}, {boost_mult}, {time_left}, {top_item}, {top_amount}.
-
-
----
-
-Edge Case
-
-Brak klucza: komunikat + dźwięk.
-
-Brak miejsca w ekwipunku: item dropi obok gracza.
-
-Brak fHolo: plugin działa, tylko bez hologramów.
-
-Zmiana czasu systemowego: plugin używa UTC.
-
-
-
----
-
-Efekt końcowy
-
-Gracze używają kluczy do skrzynek.
-
-Co 24h zmienia się profil dnia: boost na konkretne itemy albo nowa pula nagród.
-
-Hologram pokazuje boost dnia i czas do końca.
-
-Prosty system YAML, zero bazy danych.
-
-
-
----
-
-Chcesz, żebym ci do tego README dorzucił jeszcze sekcję z przykładowym gameplay flow (jak gracz widzi cały proces w praktyce, krok po kroku)?
-
+This project is licensed under the MIT License - see the [LICENSE](YOUR_GITHUB_REPOSITORY_LINK_HERE/LICENSE) file for details.
